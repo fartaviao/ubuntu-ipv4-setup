@@ -1,0 +1,106 @@
+Ubuntu IPv4 Network Configuration.
+
+This guide provides a detailed approach to configuring network interfaces on Ubuntu systems using Netplan.
+It is designed for both Ubuntu Server and Desktop environments and automates the setup process for static IP or DHCP configurations.
+The repository includes a highly interactive script, technical explanations, and examples for validation.
+
+Table of Contents:
+
+1. Prerequisites
+2. Project Structure
+3. Configuring the Network
+4. Validation and Testing
+5. Conclusion and Additional Resources
+
+---------------------------------
+
+1. Prerequisites
+
+Software and Hardware:
+Operating System: Ubuntu 20.04 or later.
+Permissions: Root user privileges or access via sudo.
+Static or Dynamic IP Address: Ensure the desired IP configuration is pre-determined.
+
+Required Tools:
+SSH connection to the server (if remote).
+Basic text editors like nano or vim for optional manual adjustments.
+
+Cloning the Project:
+To access the necessary documentation and script, clone the GitHub repository:
+git clone https://github.com/fartaviao/ubuntu-network-config.git
+cd ubuntu-network-config
+
+---------------------------------
+
+2. Project Structure
+
+ubuntu-ipv4-setup/
+├── README.md                                 # Welcome page
+├── ubuntu-ipv4-network-config.txt            # Main documentation
+├── 0-netplan-configurator.sh                 # Main interactive script
+└── Screenshots                               # For better clarity
+---------------------------------
+
+3. Configuring the Network
+
+(1) Update the System
+
+Ensure your system is updated before running the script:
+sudo apt update && sudo apt upgrade -y
+
+(2) Run the Script
+
+Run the 0-netplan-configurator.sh script to set up the network:
+chmod +x 0-netplan-configurator.sh
+sudo ./0-netplan-configurator.sh
+
+Script Highlights:
+Interactive Configuration: Choose the interface you want to configure and choose between static or DHCP during runtime.
+Static IP Details: Input the IP address, gateway, and DNS servers interactively.
+Validation Logs: All actions are logged in /var/log/netplan-config.log.
+
+---------------------------------
+
+4. Validation and Testing
+
+(1) Check Current Configuration
+
+Use the following command to confirm the applied settings:
+ip addr show <interface_name>
+
+(2) Test Connectivity
+
+For DHCP: Verify if the server obtained an IP dynamically.
+For Static IP and DHCP: Test connectivity to the gateway and external resources:
+ping -c2 <gateway_ip>
+ping -c2 8.8.8.8
+ping -c2 google.com
+
+(3) Review Logs
+
+Check /var/log/netplan-config.log for a detailed log of operations performed by the script:
+cat /var/log/netplan-config.log
+
+---------------------------------
+
+5. Conclusion and Additional Resources
+
+Summary
+This script simplifies the configuration of network interfaces in Ubuntu environments by providing a guided and interactive approach.
+It is adaptable for both server and desktop use cases, ensuring flexibility for various networking needs.
+
+Recommended Resources:
+Netplan Official Documentation --> https://netplan.io/
+Ubuntu Networking Guide --> https://ubuntu.com/server/docs/configuring-networks
+
+Additional Notes:
+Security: Ensure proper permissions on the script and log file for production use.
+Integration with Samba AD: This script complements the Samba AD setup by configuring essential network prerequisites.
+
+Contributing
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. Feel free to report any issues or suggest improvements.
+
+Acknowledgments
+Special thanks to the Ubuntu community for their comprehensive documentation and support.
+
+---------------------------------
